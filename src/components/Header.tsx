@@ -18,7 +18,7 @@ const Header = ({ onBookmarksClick }: HeaderProps) => {
           <div className="text-3xl">🕉️</div>
           <div>
             <h1 className="text-xl font-bold font-serif bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              Bhagwat Gita
+              Bhagavad Gita
             </h1>
             <p className="text-xs text-muted-foreground">Sacred Wisdom</p>
           </div>
