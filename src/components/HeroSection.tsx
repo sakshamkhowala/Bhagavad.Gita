@@ -16,7 +16,7 @@ const HeroSection = () => {
           <div className="max-w-3xl fade-in">
             
             <h1 className="text-4xl md:text-6xl font-serif font-bold mb-4 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
-              {language === 'english' ? 'Bhagwat Gita' : 'श्रीमद्भगवद्गीता'}
+              {language === 'english' ? 'Bhagavad Gita' : 'श्रीमद्भगवद्गीता'}
             </h1>
             <p className="text-xl md:text-2xl text-foreground/80 mb-2">
               {language === 'english' 
