@@ -16,12 +16,21 @@ const BookmarkContext = createContext<BookmarkContextType | undefined>(undefined
 
 export const BookmarkProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [bookmarks, setBookmarks] = useState<Bookmark[]>(() => {
-    const stored = localStorage.getItem('gita-bookmarks');
-    return stored ? JSON.parse(stored) : [];
+    try {
+      const stored = localStorage.getItem('gita-bookmarks');
+      return stored ? JSON.parse(stored) : [];
+    } catch (error) {
+      console.error('Error parsing bookmarks from localStorage:', error);
+      return [];
+    }
   });
 
   useEffect(() => {
-    localStorage.setItem('gita-bookmarks', JSON.stringify(bookmarks));
+    try {
+      localStorage.setItem('gita-bookmarks', JSON.stringify(bookmarks));
+    } catch (error) {
+      console.error('Error saving bookmarks to localStorage:', error);
+    }
   }, [bookmarks]);
 
   const toggleBookmark = (chapterId: number, verseId: number, verseNumber: number) => {
@@ -39,8 +48,10 @@ export const BookmarkProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     return bookmarks.some(b => b.chapterId === chapterId && b.verseId === verseId);
   };
 
+  const value = React.useMemo(() => ({ bookmarks, toggleBookmark, isBookmarked }), [bookmarks]);
+
   return (
-    <BookmarkContext.Provider value={{ bookmarks, toggleBookmark, isBookmarked }}>
+    <BookmarkContext.Provider value={value}>
       {children}
     </BookmarkContext.Provider>
   );

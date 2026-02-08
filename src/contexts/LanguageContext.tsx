@@ -12,7 +12,7 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [language, setLanguage] = useState<Language>(() => {
     const stored = localStorage.getItem('gita-language');
-    return (stored as Language) || 'english';
+    return (stored === 'english' || stored === 'hindi') ? stored : 'english';
   });
 
   const toggleLanguage = () => {
@@ -23,8 +23,10 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     });
   };
 
+  const value = React.useMemo(() => ({ language, toggleLanguage }), [language]);
+
   return (
-    <LanguageContext.Provider value={{ language, toggleLanguage }}>
+    <LanguageContext.Provider value={value}>
       {children}
     </LanguageContext.Provider>
   );
